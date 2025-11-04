@@ -1,7 +1,20 @@
+# ========================================
+# Lucy Network Real Estate V1 - Dockerfile
+# ========================================
+
 FROM python:3.10-slim
+
+# Establecer el directorio de trabajo
 WORKDIR /app
-COPY . .
+
+# Copiar archivos de requisitos y app
+COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
-ENV PORT=8080
+
+COPY . .
+
+# Exponer el puerto 8080 (Cloud Run)
 EXPOSE 8080
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 app:app
+
+# Comando de inicio para Flask
+CMD ["python", "app.py"]
