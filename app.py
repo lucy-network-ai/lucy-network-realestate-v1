@@ -39,7 +39,7 @@ def form():
     if request.method == 'POST':
         address = request.form.get('address')
         price = request.form.get('price')
-        # acá llamamos directamente a la lógica de Bruno
+        # Simulación de análisis por Bruno
         analysis = {
             "address": address,
             "price": float(price),
@@ -58,9 +58,8 @@ def form():
         return render_template_string(html, result_block=result_html)
 
     return render_template_string(html, result_block="")
-    
 
-# ---------- ENDPOINT JSON (el que ya probamos) ----------
+# ---------- ENDPOINT JSON ----------
 @app.route('/upload-property', methods=['POST'])
 def upload_property():
     data = request.get_json()
