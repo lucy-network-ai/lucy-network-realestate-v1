@@ -1,4 +1,4 @@
-# ========================================
+CMD ["python", "app_multimodal.py"]# ========================================
 # Lucy Network Real Estate V1 - Dockerfile
 # ========================================
 
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8080
 
 # Comando de inicio para Flask
-CMD ["python", "app.py"]
+CMD ["python", "app_multimodal.py"]
