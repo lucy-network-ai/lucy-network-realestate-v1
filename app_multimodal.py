@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+m flask import Flask, request, jsonify
 from google.cloud import firestore
 import os
 
@@ -27,11 +27,11 @@ def ingest_data():
         if not address or not price:
             return jsonify({"error": "Faltan campos obligatorios: address o price"}), 400
 
-        # Calcular valor estimado (ejemplo simbólico)
+        # Calcular valor estimado
         estimated_value = round(float(price) * 1.12, 2)
 
         # Guardar en Firestore
-        doc_ref = db.collection("properties").add({
+        db.collection("properties").add({
             "address": address,
             "price": price,
             "estimated_value": estimated_value
@@ -46,7 +46,11 @@ def ingest_data():
         return jsonify({"error": str(e)}), 500
 
 
+<<<<<<< HEAD
 # Ruta POST antigua (mantener compatibilidad)
+=======
+# Ruta POST base (compatibilidad)
+>>>>>>> f1a2a14 (Agregada ruta /ingest al servicio Flask)
 @app.route("/", methods=["POST"])
 def receive_data():
     try:
@@ -77,3 +81,5 @@ def receive_data():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port)
+
+
