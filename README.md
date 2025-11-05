@@ -46,7 +46,7 @@ Ese activador compila el código fuente y actualiza automáticamente el servicio
 ## 🧪 Test de Build Automático
 
 > Último commit de prueba:  
-> ✅ **Cloud Build Test – 2025-11-05 14:32 (ARG)**
+> ✅ **Cloud Build Test – 2025-11-05 10:07 (ARG)**
 
 *(Este bloque confirma que el sistema de despliegue automático está funcionando correctamente.)*
 
