@@ -2,7 +2,7 @@ import requests
 import json
 
 # URL del servicio activo en Cloud Run
-URL = "https://multimodal-fusion-v1-804643441779.southamerica-east1.run.app/process"
+URL = "https://multimodal-fusion-v1-804643441779.southamerica-east1.run.app/"
 
 # Datos simulados para la prueba
 payload = {
