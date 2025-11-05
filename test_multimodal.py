@@ -1,30 +1,27 @@
 import requests
 import json
 
-# URL del servicio activo en Cloud Run
+# URL exacta del servicio activo
 URL = "https://multimodal-fusion-v1-804643441779.southamerica-east1.run.app/"
 
-# Datos simulados para la prueba
-payload = {
-    "address": "Av. del Golf 320, Nordelta",
-    "price": 285000,
-    "estimated_value": 305000,
-    "latitude": -34.3935,
-    "longitude": -58.6468,
-    "property_type": "Casa",
-    "ambient_noise": 42.5,  # nivel simulado en decibelios
-    "video_reference": "sample_video_001.mp4"
+# Datos de prueba
+data = {
+    "address": "Av. Santa María 1500, Nordelta",
+    "price": 250000
 }
 
-# Envío del POST request al endpoint
 print("Enviando datos al servidor...")
-response = requests.post(URL, json=payload)
 
-# Mostrar resultado
-if response.status_code == 200:
-    print("✅ Respuesta del servidor:")
-    print(response.text)
-else:
-    print("❌ Error:")
-    print(f"Código: {response.status_code}")
-    print(response.text)
+try:
+    response = requests.post(URL, json=data)
+
+    if response.status_code == 200:
+        print("✅ Respuesta del servidor:")
+        print(json.dumps(response.json(), indent=4, ensure_ascii=False))
+    else:
+        print("❌ Error:")
+        print(f"Código: {response.status_code}")
+        print(response.text)
+
+except Exception as e:
+    print("⚠️ Error de conexión:", e)
