@@ -2,27 +2,31 @@ from flask import Flask, request, jsonify
 from google.cloud import firestore
 import os
 
-# Inicialización de la app Flask
 app = Flask(__name__)
 
-# Inicialización de Firestore
+# Inicializar Firestore
 db = firestore.Client()
 
-# 🔹 Ruta principal (GET) → Verifica conexión
 @app.route("/", methods=["GET"])
-def index():
-    return "<h3>✅ Lucy Network Real Estate V1 – Conectado a Firestore</h3>", 200
+def home():
+    return "✅ Lucy Network Real Estate V1 – Conectado a Firestore", 200
 
-# 🔹 Ruta principal (POST) → Recibe y guarda datos
 @app.route("/", methods=["POST"])
 def receive_data():
     try:
-        data = request.get_json(force=True)
-        address = data.get("address", "Sin dirección")
-        price = float(data.get("price", 0))
-        estimated_value = data.get("estimated_value", round(price * 1.1, 2))
+        data = request.get_json()
 
-        # Guardar en Firestore
+        if not data:
+            return jsonify({"error": "No se recibieron datos"}), 400
+
+        address = data.get("address")
+        price = data.get("price")
+
+        if not address or not price:
+            return jsonify({"error": "Faltan campos obligatorios"}), 400
+
+        estimated_value = round(float(price) * 1.1, 2)
+
         doc_ref = db.collection("properties").add({
             "address": address,
             "price": price,
@@ -38,13 +42,8 @@ def receive_data():
         }), 200
 
     except Exception as e:
-        return jsonify({
-            "status": "❌ Error al procesar los datos",
-            "detalle": str(e)
-        }), 500
+        return jsonify({"error": str(e)}), 500
 
-
-# 🔹 Ejecución local (solo si se ejecuta en la iMac, no en Cloud Run)
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=port)
