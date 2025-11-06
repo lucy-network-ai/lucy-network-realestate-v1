@@ -1,19 +1,17 @@
-# Lucy Network Real Estate V1 - Dockerfile
-# ========================================
+# Usa una imagen base de Python compatible con M1
+FROM --platform=linux/amd64 python:3.10-slim
 
-FROM python:3.10-slim
-
-# Establecer el directorio de trabajo
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar archivos de requisitos y app
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
+# Copia todos los archivos del proyecto
 COPY . .
 
-# Exponer el puerto 8080 (Cloud Run)
+# Instala las dependencias
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expone el puerto 8080 (usado por Cloud Run y local)
 EXPOSE 8080
 
-# Comando de inicio para Flask
-CMD ["python", "app.py"]
+# Comando para ejecutar Flask
+CMD ["python", "app_multimodal.py"]
