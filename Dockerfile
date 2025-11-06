@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8080
 
 # Comando de inicio para Flask
-CMD ["python", "app_multimodal.py"]
+CMD ["python", "app.py"]
