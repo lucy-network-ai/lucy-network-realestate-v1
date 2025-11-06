@@ -1,4 +1,3 @@
-CMD ["python", "app_multimodal.py"]# ========================================
 # Lucy Network Real Estate V1 - Dockerfile
 # ========================================
 
